@@ -232,7 +232,7 @@ window.ARKVEIN_BOOK = {
       "id": "last-firing",
       "title": "Сигиллат,\nПоследний Обжиг",
       "section": "Канон · IV · Пробуждение",
-      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3JPBj68V1DWxFlWxOpESOo9ILDm/hf_20260928_180706_20703154-e305-46da-8ff5-1ba963e405d6_min.webp",
+      "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3JPBj68V1DWxFlWxOpESOo9ILDm/hf_20260928_232832_f961f616-8f40-4565-987a-c025f75e731c_min.webp",
       "alt": "Пробуждённый Сигиллат вбивает Великую Печать в площадь, от удара расходится огненное кольцо.",
       "caption": "Когда печати мало, он сам становится печью.",
       "text": [
@@ -242,8 +242,7 @@ window.ARKVEIN_BOOK = {
       "chapter": "echors",
       "part": "canon",
       "type": "story",
-      "focus": "60%",
-      "tone": 0.23
+      "focus": "60%"
     },
     {
       "id": "bound",
