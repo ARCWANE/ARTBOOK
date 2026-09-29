@@ -68,9 +68,9 @@
     const stage=document.createElement('div');stage.className='fold-stage';stage.setAttribute('aria-hidden','true');stage.inert=true;
     const under=document.createElement('div');under.className='fold-under';
     // While the closed cover is lifted, its inside frontispiece is revealed.
-    under.innerHTML=target===0?'':current===0?pageMarkup(pages[1],1):visible(target).map((p,i)=>pageMarkup(p,target+i)).join('');
+    under.innerHTML=target===0?'':current===0&&narrow.matches?pageMarkup(pages[1],1):current===0?'<div class="leaf fold-blank"></div>'+pageMarkup(pages[2],2):visible(target).map((p,i)=>pageMarkup(p,target+i)).join('');
     if(target===0)stage.classList.add('closing-cover');
-    if(current===0||narrow.matches||target===0)under.classList.add('single');
+    if(narrow.matches||target===0)under.classList.add('single');
     stage.append(under);
     for(const other of leaves){if(other===leaf)continue;const rr=other.getBoundingClientRect();const still=inertClone(other);still.classList.add('fold-still');Object.assign(still.style,{left:(rr.left-br.left)+'px',top:(rr.top-br.top)+'px',width:rr.width+'px',height:rr.height+'px',minHeight:'0',aspectRatio:'auto'});stage.append(still);}
     const front=inertClone(leaf);front.classList.add('fold-front');

@@ -236,3 +236,4 @@ body{background:radial-gradient(ellipse at 50% 35%,#101514 0,#080c0b 50%,#030505
  .book:not(.closed) .leaf.frontispiece:not(.cover):before{background:radial-gradient(ellipse at 50% 42%,#03090b73 0%,#03090b33 30%,#03090b00 60%),linear-gradient(0deg,#03090bf2 0%,#03090b99 18%,#03090b26 40%,#03090b00 55%)!important}
  .book:not(.closed) .leaf.frontispiece .page-copy{top:40%!important;bottom:auto!important;transform:translateY(-50%)!important;background:none!important}
 }
+.fold-blank{background:#080e0b}
