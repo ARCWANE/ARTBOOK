@@ -230,3 +230,9 @@ body{background:radial-gradient(ellipse at 50% 35%,#101514 0,#080c0b 50%,#030505
  .book:not(.closed) .frontispiece .page-copy{top:50%!important;bottom:auto!important;transform:translateY(-35%)}
  .book:not(.closed) .frontispiece:before{background:radial-gradient(ellipse at 50% 55%,#03090bd9 0%,#03090b99 35%,#03090b00 70%),linear-gradient(0deg,#03090bf0 0%,#03090b80 30%,#03090b00 60%)!important}
 }
+/* v69: phones - page «Арквейн»: art over the whole page, mark and title centred on it. */
+@media (max-width:700px) and (orientation:portrait){
+ .book:not(.closed) .leaf.frontispiece .page-art{inset:0!important;height:100%!important}
+ .book:not(.closed) .leaf.frontispiece:not(.cover):before{background:radial-gradient(ellipse at 50% 42%,#03090b73 0%,#03090b33 30%,#03090b00 60%),linear-gradient(0deg,#03090bf2 0%,#03090b99 18%,#03090b26 40%,#03090b00 55%)!important}
+ .book:not(.closed) .leaf.frontispiece .page-copy{top:40%!important;bottom:auto!important;transform:translateY(-50%)!important;background:none!important}
+}
