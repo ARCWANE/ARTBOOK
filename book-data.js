@@ -625,7 +625,7 @@ window.ARKVEIN_BOOK = {
       "part": "common",
       "focus": "50%",
       "tone": 0.52,
-      "subtitle": ""
+      "subtitle": "Колыбели · Мать Забвения"
     },
     {
       "id": "limbrein-threshold",

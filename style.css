@@ -237,3 +237,8 @@ body{background:radial-gradient(ellipse at 50% 35%,#101514 0,#080c0b 50%,#030505
  .book:not(.closed) .leaf.frontispiece .page-copy{top:40%!important;bottom:auto!important;transform:translateY(-50%)!important;background:none!important}
 }
 .fold-blank{background:#080e0b}
+
+/* Limbrain title: place name below the emblem. */
+@media(min-width:701px){
+ .book:not(.closed) .chapter-page[data-index="37"] .page-copy{top:70%;}
+}
