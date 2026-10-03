@@ -9,7 +9,7 @@ window.ARKVEIN_BOOK = {
     {
       "id": "echors",
       "title": "Эхоры",
-      "subtitle": "Глава I · Канон и Хор Раскола"
+      "subtitle": "Канон и Хор Раскола"
     },
     {
       "id": "limbrein",
@@ -93,7 +93,7 @@ window.ARKVEIN_BOOK = {
     {
       "id": "faction-title",
       "title": "ЭХОРЫ",
-      "section": "Глава I",
+      "section": "",
       "image": "https://d8j0ntlcm91z4.cloudfront.net/user_3JPBj68V1DWxFlWxOpESOo9ILDm/hf_20260928_181247_faa2a4ca-5c41-4674-8820-175f7bc8eeaf_min.webp",
       "alt": "Знак эхоров: сосуд из двух разомкнутых золотых дуг и камертон внутри.",
       "caption": "Знак эхоров: сосуд из двух разомкнутых дуг и камертон внутри - голос, который живёт в теле, но не сливается с ним.",
