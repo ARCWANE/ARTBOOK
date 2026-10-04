@@ -6,7 +6,7 @@
 <meta name="description" content="Арквейн — иллюстрированная книга мира: земли, народы, фракции, герои и предания.">
 <title>ARCWANE — Artbook 2026</title>
 <link rel="icon" href="world-mark-v5.png" type="image/png"><link rel="stylesheet" href="style.css?v=arcwane-limbrein-title-20261003">
-<script src="book-data.js?v=arcwane-limbrein-title-v17-20261004" defer></script><script src="page-fold.js?v=arcwane-v71" defer></script><script src="reader.js?v=arcwane-v71" defer></script>
+<script src="book-data.js?v=arcwane-dark-cloth-v3-20261004" defer></script><script src="page-fold.js?v=arcwane-v71" defer></script><script src="reader.js?v=arcwane-v71" defer></script>
 <style>.book:not(.closed) .chapter-page[data-index="37"]:before{background:linear-gradient(180deg,transparent 58%,#00000066 64%,#000000ee 73%,#000 90%)!important}@media(min-width:701px){.book:not(.closed) .chapter-page[data-index="37"] .page-copy{top:65%!important}.book:not(.closed) .chapter-page[data-index="37"] .page-art{height:90%!important;object-position:center top!important}}</style>
 <style>@media(max-width:700px){.book:not(.closed) .leaf.chapter-page[data-index="5"] .page-copy,.book:not(.closed) .leaf.chapter-page[data-index="37"] .page-copy{bottom:85px!important}}</style>
 <style>
@@ -86,6 +86,7 @@
 #contentsDialog .toc-row.toc-faction-start:hover,#contentsDialog .toc-row.toc-faction-start:focus-visible{background:linear-gradient(90deg,transparent,#8b795a33 25%,#8b795a33 75%,transparent)}
 @media(max-width:700px){#contentsDialog .toc-row.toc-faction-start{grid-template-columns:28px minmax(0,1fr) 28px;gap:5px;margin:27px 0 13px;padding:23px 0}#contentsDialog .toc-faction-start>span:first-child{font-size:25px;letter-spacing:.08em}#contentsDialog .toc-faction-start>.toc-number{font-size:11px}}
 </style>
+<style>.book:not(.closed) .leaf.chapter-page[data-index="37"] .page-art{height:64%!important;object-fit:contain!important;object-position:center center!important}.book:not(.closed) .chapter-page[data-index="37"]:before{background:linear-gradient(180deg,transparent 43%,#00000040 54%,#000000cf 64%,#000 74%)!important}@media(max-width:700px){.book:not(.closed) .leaf.chapter-page[data-index="37"] .page-art{object-fit:cover!important}}</style>
 </head>
 <body>
 <div class="app">
@@ -186,7 +187,7 @@ document.addEventListener('click',event=>{
  queueMicrotask(()=>{
   const dialog=document.getElementById('artDialog');if(!dialog.open)return;
   const image=document.getElementById('artFull');
-  image.src='limbrein-emblem-full.webp?v=arcwane-limbrein-full-v1-20261004';
+  image.src='limbrein-emblem-dark-cloth.webp?v=arcwane-dark-cloth-v3-20261004';
   image.parentNode.classList.add('no-dim');
  });
 });
