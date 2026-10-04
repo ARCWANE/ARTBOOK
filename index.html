@@ -87,6 +87,22 @@
 @media(max-width:700px){#contentsDialog .toc-row.toc-faction-start{grid-template-columns:28px minmax(0,1fr) 28px;gap:5px;margin:27px 0 13px;padding:23px 0}#contentsDialog .toc-faction-start>span:first-child{font-size:25px;letter-spacing:.08em}#contentsDialog .toc-faction-start>.toc-number{font-size:11px}}
 </style>
 <style>.book:not(.closed) .leaf.chapter-page[data-index="37"] .page-art{height:64%!important;object-fit:contain!important;object-position:center center!important}.book:not(.closed) .chapter-page[data-index="37"]:before{background:linear-gradient(180deg,transparent 43%,#00000040 54%,#000000cf 64%,#000 74%)!important}@media(max-width:700px){.book:not(.closed) .leaf.chapter-page[data-index="37"] .page-art{object-fit:cover!important}}</style>
+<style>
+/* Limbrain: full-width artwork, no letterboxed inset panel. */
+.book:not(.closed) .leaf.chapter-page[data-index="37"]{background:#000!important}
+.book:not(.closed) .leaf.chapter-page[data-index="37"] .page-art{inset:0 0 auto 0!important;width:100%!important;height:auto!important;max-height:none!important;aspect-ratio:16/9!important;object-fit:contain!important;object-position:center top!important}
+.book:not(.closed) .leaf.chapter-page[data-index="37"]:before{background:linear-gradient(180deg,transparent 45%,#00000040 56%,#000000db 70%,#000 86%)!important}
+@media(max-width:700px){
+ .book:not(.closed) .leaf.chapter-page[data-index="37"] .page-art{height:72%!important;aspect-ratio:auto!important;object-fit:cover!important;object-position:center center!important}
+}
+/* Fit the complete emblem in the inspection viewer, including phones. */
+#artDialog[data-complete-emblem="true"] .art-frame{display:block;width:100%;overflow:hidden;background:#000}
+#artDialog[data-complete-emblem="true"] .art-frame img{width:100%!important;height:auto!important;max-width:100%!important;max-height:calc(92dvh - 125px)!important;object-fit:contain!important;margin:auto}
+@media(max-width:700px){
+ #artDialog[data-complete-emblem="true"] .art-frame{position:absolute;inset:56px 0 0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+ #artDialog[data-complete-emblem="true"] .art-frame img{width:100%!important;height:100%!important;max-height:100%!important;max-width:100%!important;object-fit:contain!important}
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -207,5 +223,13 @@ function markFactionStarts(){
  });
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',markFactionStarts,{once:true});else markFactionStarts();
+</script>
+<script>
+document.addEventListener('click',event=>{
+ const button=event.target.closest('[data-art]');if(!button)return;
+ const dialog=document.getElementById('artDialog');
+ if(button.dataset.art==='37')dialog.dataset.completeEmblem='true';
+ else delete dialog.dataset.completeEmblem;
+});
 </script>
 </body></html>
