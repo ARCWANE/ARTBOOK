@@ -78,6 +78,14 @@
 }
 </style>
 <style>#contentsDialog .contents-scroll{touch-action:pan-y;overflow-y:scroll}#contentsDialog .toc-backdrop img{will-change:top;transform:none!important;transition:none!important}</style>
+<style>
+#contentsDialog .toc-faction-duplicate{display:none}
+#contentsDialog .toc-row.toc-faction-start{position:relative;display:grid;grid-template-columns:36px minmax(0,1fr) 36px;align-items:center;gap:8px;margin:30px 0 15px;padding:25px 0 23px;border-top:1px solid #cbb38370;border-bottom:1px solid #cbb38370;background:linear-gradient(90deg,transparent,#0a0d10a6 22%,#0a0d10a6 78%,transparent);text-align:center}
+#contentsDialog .toc-faction-start>span:first-child{grid-column:2;font-family:Georgia,'Times New Roman',serif;font-size:clamp(24px,3vw,31px);font-weight:400;line-height:1.2;letter-spacing:.12em;color:#eee6d4;text-transform:uppercase;text-shadow:0 2px 5px #000;overflow-wrap:anywhere}
+#contentsDialog .toc-faction-start>.toc-number{grid-column:3;text-align:right;font:12px/1.4 Arial,sans-serif;letter-spacing:.05em;color:#cbb383}
+#contentsDialog .toc-row.toc-faction-start:hover,#contentsDialog .toc-row.toc-faction-start:focus-visible{background:linear-gradient(90deg,transparent,#8b795a33 25%,#8b795a33 75%,transparent)}
+@media(max-width:700px){#contentsDialog .toc-row.toc-faction-start{grid-template-columns:28px minmax(0,1fr) 28px;gap:5px;margin:27px 0 13px;padding:23px 0}#contentsDialog .toc-faction-start>span:first-child{font-size:25px;letter-spacing:.08em}#contentsDialog .toc-faction-start>.toc-number{font-size:11px}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -182,5 +190,21 @@ document.addEventListener('click',event=>{
   image.parentNode.classList.add('no-dim');
  });
 });
+</script>
+<script>
+// Every faction title page becomes a distinct, centered contents separator.
+function markFactionStarts(){
+ const list=document.getElementById('contentsList'),data=window.ARKVEIN_BOOK;if(!list||!data)return;
+ data.pages.forEach((page,index)=>{
+  if(page.type!=='chapter'||!page.chapter||page.chapter==='world')return;
+  const row=list.querySelector('[data-page="'+index+'"]');if(!row)return;
+  row.classList.add('toc-faction-start');
+  row.setAttribute('aria-label','Начало фракции: '+page.title.replace(/\n/g,' '));
+  let previous=row.previousElementSibling;
+  while(previous&&previous.tagName!=='H3')previous=previous.previousElementSibling;
+  if(previous)previous.classList.add('toc-faction-duplicate');
+ });
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',markFactionStarts,{once:true});else markFactionStarts();
 </script>
 </body></html>
