@@ -165,6 +165,33 @@
 }
 @media(max-width:700px){.book.closed::after{width:11px;background-size:7px 145px,100% 100%}}
 </style>
+<style id="arcwane-emblem-pages-unified">
+/* All faction emblem pages (Эхор, Лимбрейн, Авернакс): art over the whole page, soft bottom gradient, title under the emblem. */
+.book:not(.closed) .leaf.chapter-page[data-index]:is([data-index="5"],[data-index="37"],[data-index="75"]) .page-art{inset:0!important;width:100%!important;height:100%!important;aspect-ratio:auto!important;max-height:none!important;object-fit:cover!important;object-position:50% 38%!important;-webkit-mask-image:none!important;mask-image:none!important}
+.book:not(.closed) .leaf.chapter-page[data-index]:is([data-index="5"],[data-index="37"],[data-index="75"]):not(.cover)::before{background:linear-gradient(180deg,#03090900 50%,#03090966 68%,#030909c7 82%,#030909eb 100%)!important}
+.book:not(.closed) .leaf.chapter-page[data-index]:is([data-index="5"],[data-index="37"],[data-index="75"]) .page-copy{top:auto!important;bottom:50px!important;transform:none!important;background:none!important}
+.book:not(.closed) .leaf.chapter-page[data-index]:is([data-index="5"],[data-index="37"],[data-index="75"]) .page-copy *{text-shadow:0 2px 6px #000,0 0 18px #000c}
+@media (max-width:700px) and (orientation:portrait){
+ .book:not(.closed) .leaf.chapter-page[data-index]:is([data-index="5"],[data-index="37"],[data-index="75"]) .page-art{inset:0 0 auto 0!important;height:72%!important;object-position:50% 45%!important;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 62%,transparent 100%),linear-gradient(90deg,transparent 0%,#000 14%,#000 86%,transparent 100%)!important;-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,#000 0%,#000 62%,transparent 100%),linear-gradient(90deg,transparent 0%,#000 14%,#000 86%,transparent 100%)!important;mask-composite:intersect}
+ .book:not(.closed) .leaf.chapter-page[data-index]:is([data-index="5"],[data-index="37"],[data-index="75"]) .page-copy{bottom:70px!important}
+}
+</style>
+<style id="arcwane-avernax-viewer-crop">
+/* Avernax arts carry a dark band baked in for page text; the viewer crops it per art and keeps only a light fade. */
+#artDialog[data-art-chapter="avernax"][data-crop] .art-frame img{aspect-ratio:var(--ar)!important;width:auto!important;height:min(72dvh,calc((100vw - 140px) / var(--ar)))!important;max-width:none!important;max-height:none!important;object-fit:cover!important;object-position:50% 0!important;-webkit-mask-image:linear-gradient(180deg,#000 92%,transparent 100%)!important;mask-image:linear-gradient(180deg,#000 92%,transparent 100%)!important}
+#artDialog #artCaption{white-space:normal!important;max-width:min(1100px,92%);margin-left:auto!important;margin-right:auto!important;overflow-wrap:anywhere}
+@media (max-width:700px) and (orientation:portrait){
+ #artDialog[data-art-chapter="avernax"][data-crop] .art-frame img{height:100%!important;width:auto!important}
+ #artDialog #artCaption{max-width:100%}
+}
+</style>
+<script>
+(()=>{const C={"avernax-075-emblem.webp": 2.2492, "avernax-076-lands.webp": 2.5383, "avernax-077-old-city.webp": 2.1669, "avernax-078-together.webp": 2.278, "avernax-079-vow.webp": 2.1936, "avernax-080-judgment.webp": 2.278, "avernax-081-binding.webp": 2.6922, "avernax-082-tower.webp": 2.2247, "avernax-084-search.webp": 1.9526, "avernax-085-price.webp": 2.5383, "avernax-086-neviara.webp": 2.3076, "avernax-087-curse.webp": 2.1936, "avernax-088-mirror-making.webp": 2.1936, "avernax-090-mirror-rule.webp": 2.278, "avernax-091-coven.webp": 2.5751, "avernax-092-kernval.webp": 2.1153, "avernax-093-houses.webp": 2.3076, "avernax-094-ritual-hall.webp": 2.2492, "avernax-095-leader.webp": 2.3691, "avernax-097-silent-command.webp": 2.1153, "avernax-098-army.webp": 2.0423, "avernax-099-sarvel.webp": 2.4366, "avernax-100-nerit.webp": 2.0191, "avernax-102-witnesses.webp": 2.3691, "avernax-103-knot.webp": 2.434, "avernax-104-spell.webp": 2.4011, "avernax-105-attempt.webp": 2.221, "avernax-106-centuries.webp": 2.1936, "avernax-107-cost.webp": 2.8204, "avernax-108-renewal.webp": 2.3076, "avernax-109-love.webp": 2.3076, "avernax-110-tomorrow.webp": 2.5383};
+const run=()=>{const d=document.getElementById('artDialog'),i=document.getElementById('artFull');if(!d||!i)return;
+const set=()=>{const n=(i.getAttribute('src')||'').split('/').pop().split('?')[0];const r=C[n];if(r){d.dataset.crop='1';d.style.setProperty('--ar',r)}else{delete d.dataset.crop;d.style.removeProperty('--ar')}};
+new MutationObserver(set).observe(i,{attributes:true,attributeFilter:['src']});set();};
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run):run();})();
+</script>
 </head>
 <body>
 <div class="app">
