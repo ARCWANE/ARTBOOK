@@ -170,4 +170,17 @@
  }).observe(book);
 })();
 </script>
+<script>
+// Use a centered inspection composition for the Limbrain emblem only.
+document.addEventListener('click',event=>{
+ const button=event.target.closest('[data-art]');
+ if(!button||button.dataset.art!=='37')return;
+ queueMicrotask(()=>{
+  const dialog=document.getElementById('artDialog');if(!dialog.open)return;
+  const image=document.getElementById('artFull');
+  image.src='limbrein-emblem-full.webp?v=arcwane-limbrein-full-v1-20261004';
+  image.parentNode.classList.add('no-dim');
+ });
+});
+</script>
 </body></html>
