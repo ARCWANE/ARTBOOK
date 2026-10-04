@@ -624,7 +624,7 @@ window.ARKVEIN_BOOK = {
       "id": "limbrein-title",
       "title": "ЛИМБРЕЙН",
       "section": "",
-      "image": "limbrein-title-final.webp?v=arcwane-limbrein-power-v10-20261004",
+      "image": "limbrein-title-final.webp?v=arcwane-limbrein-title-v15-20261004",
       "alt": "ЛИМБРЕЙН",
       "caption": "Раскрытый полумесяц над готическим остриём — знак Лимбрейна.",
       "type": "chapter",
