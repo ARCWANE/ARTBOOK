@@ -32,6 +32,34 @@
 @media(max-width:700px){.toc-content{padding:24px 20px}#contentsDialog{width:calc(100% - 24px)}#contentsDialog .dialog-head h2{font-size:27px}}
 @media(prefers-reduced-motion:reduce){.toc-backdrop img{will-change:auto}#contentsDialog .toc-row{transition:none}}
 </style>
+<style>
+/* Separate art plane: phone scrolling cannot carry the backdrop out of view. */
+#contentsDialog{position:fixed;isolation:isolate}
+#contentsDialog .toc-backdrop{position:absolute;inset:0;height:100%;margin:0;z-index:0;overflow:hidden;pointer-events:none}
+#contentsDialog .toc-backdrop img{height:var(--toc-art-height,175%);object-position:center top}
+#contentsDialog .contents-scroll{position:relative;z-index:1;background:transparent;-webkit-overflow-scrolling:touch}
+@media(max-width:700px){
+ .masthead{display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);grid-template-rows:1fr;height:58px!important;padding:0;column-gap:6px;row-gap:0;align-items:center}
+ .masthead .identity{grid-column:1;grid-row:1;justify-self:start;gap:6px}
+ .masthead #contentsButton{grid-column:3;grid-row:1;justify-self:end;white-space:nowrap;font-size:11px;padding:8px 0}
+ .masthead #contentsButton span{margin-left:6px}
+ .masthead .credit{display:block!important;position:static!important;grid-column:2;grid-row:1;justify-self:center;transform:none!important;font-size:7px;letter-spacing:.18em;line-height:22px;white-space:nowrap}
+ .identity .header-wordmark{font-size:15px!important;letter-spacing:.16em}
+ .identity>div{position:relative}
+ .identity span{position:absolute;top:100%;left:0;right:0;margin-top:0;font-size:6.5px;letter-spacing:.16em;white-space:nowrap}
+ .header-mark{width:18px!important;height:24px!important}
+}
+@media(max-width:380px){
+ .masthead{column-gap:3px}
+ .masthead .identity{gap:4px}
+ .identity .header-wordmark{font-size:12px!important;letter-spacing:.1em}
+ .identity span{font-size:6px}
+ .masthead .credit{font-size:6px;letter-spacing:.1em}
+ .masthead #contentsButton{font-size:10px}
+ .header-mark{width:15px!important}
+}
+
+</style>
 </head>
 <body>
 <div class="app">
@@ -43,7 +71,7 @@
 
 </main>
 </div>
-<dialog id="contentsDialog" class="contents-dialog" aria-labelledby="contentsTitle"><div class="contents-scroll"><div class="toc-backdrop" aria-hidden="true"><img src="contents-world-art.webp?v=arcwane-toc-v1-20261004" alt="" draggable="false"></div><div class="toc-content"><div class="dialog-head"><div><small>АРКВЕЙН</small><h2 id="contentsTitle">Содержание</h2></div><button type="button" class="close" aria-label="Закрыть содержание">×</button></div><nav id="contentsList" aria-label="Главы и страницы"></nav></div></div></dialog>
+<dialog id="contentsDialog" class="contents-dialog" aria-labelledby="contentsTitle"><div class="toc-backdrop" aria-hidden="true"><img src="contents-world-art.webp?v=arcwane-toc-v1-20261004" alt="" draggable="false"></div><div class="contents-scroll"><div class="toc-content"><div class="dialog-head"><div><small>АРКВЕЙН</small><h2 id="contentsTitle">Содержание</h2></div><button type="button" class="close" aria-label="Закрыть содержание">×</button></div><nav id="contentsList" aria-label="Главы и страницы"></nav></div></div></dialog>
 <dialog id="artDialog" class="art-dialog" aria-labelledby="artTitle"><div class="dialog-head"><h2 id="artTitle">Иллюстрация</h2><button type="button" class="close" aria-label="Закрыть иллюстрацию">×</button></div><div class="art-frame"><img id="artFull" alt=""></div><p id="artCaption"></p></dialog>
 <script>
 // On phones, a second single tap on the enlarged artwork returns to the book.
@@ -81,13 +109,17 @@
  const reduced=matchMedia('(prefers-reduced-motion:reduce)');let frame=0;
  function paint(){
   frame=0;if(!dialog.open)return;
-  const height=scroller.clientHeight;
-  scroller.style.setProperty('--toc-view',height+'px');
+  const height=scroller.clientHeight,width=scroller.clientWidth;
+  if(!height||!width)return;
+  const ratio=image.naturalWidth?image.naturalHeight/image.naturalWidth:3;
+  const artworkHeight=Math.max(height*1.75,width*ratio),travel=artworkHeight-height;
+  dialog.style.setProperty('--toc-art-height',artworkHeight+'px');
   const range=Math.max(1,scroller.scrollHeight-height),progress=Math.max(0,Math.min(1,scroller.scrollTop/range));
-  image.style.transform='translate3d(0,'+(-height*1.4*(reduced.matches?0:progress))+'px,0)';
+  image.style.transform='translate3d(0,'+(-travel*(reduced.matches?0:progress))+'px,0)';
  }
  function schedule(){if(!frame)frame=requestAnimationFrame(paint);}
  scroller.addEventListener('scroll',schedule,{passive:true});
+ addEventListener('resize',schedule,{passive:true});
  new ResizeObserver(schedule).observe(scroller);
  new MutationObserver(schedule).observe(dialog,{attributes:true,attributeFilter:['open']});
  reduced.addEventListener('change',schedule);
