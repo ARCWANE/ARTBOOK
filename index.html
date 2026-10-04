@@ -143,6 +143,36 @@
 /* Limbrain emblem only; the rest of Limbrain and all Echor pages stay intact. */
 .book:not(.closed) .leaf.chapter-page[data-index="37"]:not(.cover)::before{background:linear-gradient(180deg,#0000 52%,#03090929 72%,#0309097a 100%)!important}
 </style>
+<style id="arcwane-emblem-image-edge-transition">
+/* Fade at the image's own edge, not at the bottom of the taller page. */
+.book:not(.closed) .leaf.chapter-page:is([data-index="37"],[data-index="75"]) .page-art{
+ -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 70%,rgba(0,0,0,.97) 76%,rgba(0,0,0,.82) 83%,rgba(0,0,0,.52) 90%,rgba(0,0,0,.18) 96%,transparent 100%)!important;
+ mask-image:linear-gradient(180deg,#000 0%,#000 70%,rgba(0,0,0,.97) 76%,rgba(0,0,0,.82) 83%,rgba(0,0,0,.52) 90%,rgba(0,0,0,.18) 96%,transparent 100%)!important;
+ -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+ -webkit-mask-size:100% 100%;mask-size:100% 100%;
+}
+/* Inspection always retains the complete original image. */
+#artDialog .art-frame img{-webkit-mask-image:none!important;mask-image:none!important}
+</style>
+
+<style id="arcwane-leather-binding-v1">
+/* Closed cover: rolled leather spine, blind tooling and five raised bands. */
+.book.closed{
+ box-shadow:-7px 5px 0 -3px #1c1916,-10px 9px 0 -5px #090b0b,0 30px 85px #000e,0 0 0 1px #91806950;
+}
+.book.closed::after{
+ content:'';display:block!important;position:absolute;inset:0 auto 0 0;width:34px;z-index:25;pointer-events:none;
+ border:0;border-radius:3px 0 0 3px;
+ background:
+ linear-gradient(180deg,transparent 8%,#08070788 8.3%,#a4967952 8.55%,#453b30 8.9%,#181616 9.4%,#050606b0 9.8%,transparent 10.1%,transparent 27%,#08070788 27.3%,#a4967952 27.55%,#453b30 27.9%,#181616 28.4%,#050606b0 28.8%,transparent 29.1%,transparent 48%,#08070788 48.3%,#a4967952 48.55%,#453b30 48.9%,#181616 49.4%,#050606b0 49.8%,transparent 50.1%,transparent 69%,#08070788 69.3%,#a4967952 69.55%,#453b30 69.9%,#181616 70.4%,#050606b0 70.8%,transparent 71.1%,transparent 89%,#08070788 89.3%,#a4967952 89.55%,#453b30 89.9%,#181616 90.4%,#050606b0 90.8%,transparent 91.1%),
+ linear-gradient(90deg,transparent 13%,#03030380 14%,#82715a45 17%,transparent 20%,transparent 71%,#040505ba 74%,#8e7b5b55 77%,#07080890 81%,transparent 84%),
+ repeating-linear-gradient(23deg,#ffffff03 0 1px,transparent 1px 5px,#0000000a 6px 7px,transparent 7px 13px),
+ linear-gradient(90deg,#080909 0%,#302a24 7%,#55483a 16%,#2a2522 31%,#181717 57%,#2d2923 70%,#0c0d0d 82%,#00000088 90%,transparent 100%);
+ box-shadow:inset 1px 0 0 #a6916d35,inset 4px 0 6px #0008,inset 0 1px 0 #b4a17a35,inset 0 -1px 0 #000c,7px 0 10px -6px #000b;
+}
+@media(max-width:700px){.book.closed::after{width:24px}}
+@media(prefers-reduced-motion:reduce){.book.closed::after{transition:none}}
+</style>
 </head>
 <body>
 <div class="app">
