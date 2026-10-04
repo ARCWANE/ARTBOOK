@@ -9,6 +9,29 @@
 <script src="book-data.js?v=arcwane-limbrein-title-v17-20261004" defer></script><script src="page-fold.js?v=arcwane-v71" defer></script><script src="reader.js?v=arcwane-v71" defer></script>
 <style>.book:not(.closed) .chapter-page[data-index="37"]:before{background:linear-gradient(180deg,transparent 58%,#00000066 64%,#000000ee 73%,#000 90%)!important}@media(min-width:701px){.book:not(.closed) .chapter-page[data-index="37"] .page-copy{top:65%!important}.book:not(.closed) .chapter-page[data-index="37"] .page-art{height:90%!important;object-position:center top!important}}</style>
 <style>@media(max-width:700px){.book:not(.closed) .leaf.chapter-page[data-index="5"] .page-copy,.book:not(.closed) .leaf.chapter-page[data-index="37"] .page-copy{bottom:85px!important}}</style>
+<style>
+@media(max-width:700px){
+ .masthead{display:grid!important;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:1fr auto;column-gap:12px;row-gap:9px;height:82px!important;padding:6px 0 8px;align-items:center}
+ .masthead .identity{grid-column:1;grid-row:1;justify-self:start}
+ .masthead #contentsButton{grid-column:2;grid-row:1;justify-self:end}
+ .masthead .credit{display:block!important;position:static!important;grid-column:1/-1;grid-row:2;justify-self:center;top:auto!important;bottom:auto!important;left:auto!important;transform:none!important;margin:0;font:8px/1.4 Arial,sans-serif;letter-spacing:.28em;color:#b9ab86;text-align:center;white-space:nowrap}
+ .book-position{margin-top:20px!important}
+ .book-position .folio{margin-top:0!important}
+}
+</style>
+<style>
+/* A single continuous world illustration, revealed slowly behind the contents. */
+#contentsDialog{height:min(92dvh,960px);max-height:92dvh;padding:0;overflow:hidden;background:#070b0e}
+.contents-scroll{height:100%;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-color:#756e5b #101416;position:relative;isolation:isolate}
+.toc-backdrop{position:sticky;top:0;height:var(--toc-view,80dvh);margin-bottom:calc(-1 * var(--toc-view,80dvh));overflow:hidden;pointer-events:none;z-index:0;background:#080c10}
+.toc-backdrop img{position:absolute;top:0;left:0;width:100%;height:calc(var(--toc-view,80dvh) * 2.4);object-fit:cover;object-position:center;max-height:none;will-change:transform;filter:brightness(.68) saturate(.72)}
+.toc-backdrop:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#03070baa,#03070b66 25%,#03070b88 75%,#03070baa),linear-gradient(180deg,#03070b55,#03070b22 50%,#03070b88)}
+.toc-content{position:relative;z-index:1;padding:30px;text-shadow:0 1px 3px #000,0 0 12px #000}
+#contentsDialog .toc-row{border-color:#b6b09540;transition:background .18s ease}
+#contentsDialog .toc-row:hover,#contentsDialog .toc-row:focus-visible{background:#b6a98515}
+@media(max-width:700px){.toc-content{padding:24px 20px}#contentsDialog{width:calc(100% - 24px)}#contentsDialog .dialog-head h2{font-size:27px}}
+@media(prefers-reduced-motion:reduce){.toc-backdrop img{will-change:auto}#contentsDialog .toc-row{transition:none}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -20,6 +43,55 @@
 
 </main>
 </div>
-<dialog id="contentsDialog" class="contents-dialog" aria-labelledby="contentsTitle"><div class="dialog-head"><div><small>АРКВЕЙН</small><h2 id="contentsTitle">Содержание</h2></div><button type="button" class="close" aria-label="Закрыть содержание">×</button></div><nav id="contentsList" aria-label="Главы и страницы"></nav></dialog>
+<dialog id="contentsDialog" class="contents-dialog" aria-labelledby="contentsTitle"><div class="contents-scroll"><div class="toc-backdrop" aria-hidden="true"><img src="contents-world-art.webp?v=arcwane-toc-v1-20261004" alt="" draggable="false"></div><div class="toc-content"><div class="dialog-head"><div><small>АРКВЕЙН</small><h2 id="contentsTitle">Содержание</h2></div><button type="button" class="close" aria-label="Закрыть содержание">×</button></div><nav id="contentsList" aria-label="Главы и страницы"></nav></div></div></dialog>
 <dialog id="artDialog" class="art-dialog" aria-labelledby="artTitle"><div class="dialog-head"><h2 id="artTitle">Иллюстрация</h2><button type="button" class="close" aria-label="Закрыть иллюстрацию">×</button></div><div class="art-frame"><img id="artFull" alt=""></div><p id="artCaption"></p></dialog>
+<script>
+// On phones, a second single tap on the enlarged artwork returns to the book.
+// Dragging, scrolling and pinch gestures keep the artwork open.
+(() => {
+ const mobile=matchMedia('(max-width:700px)'),image=document.getElementById('artFull'),dialog=document.getElementById('artDialog');
+ const active=new Set();let gesture=null,canClose=false;
+ image.addEventListener('pointerdown',e=>{
+  canClose=false;
+  if(!mobile.matches||!dialog.open)return;
+  active.add(e.pointerId);
+  if(active.size>1){if(gesture)gesture.valid=false;return;}
+  gesture={id:e.pointerId,x:e.clientX,y:e.clientY,valid:e.isPrimary!==false};
+ });
+ image.addEventListener('pointermove',e=>{
+  if(gesture&&e.pointerId===gesture.id&&Math.hypot(e.clientX-gesture.x,e.clientY-gesture.y)>12)gesture.valid=false;
+ });
+ document.addEventListener('pointerup',e=>{
+  active.delete(e.pointerId);
+  if(!gesture||e.pointerId!==gesture.id)return;
+  canClose=gesture.valid&&active.size===0&&Math.hypot(e.clientX-gesture.x,e.clientY-gesture.y)<=12;
+  gesture=null;
+ });
+ document.addEventListener('pointercancel',e=>{active.delete(e.pointerId);gesture=null;canClose=false;});
+ image.addEventListener('click',()=>{
+  if(mobile.matches&&dialog.open&&canClose)dialog.close();
+  canClose=false;
+ });
+ dialog.addEventListener('close',()=>{active.clear();gesture=null;canClose=false;});
+})();
+</script>
+<script>
+(() => {
+ const dialog=document.getElementById('contentsDialog'),scroller=dialog.querySelector('.contents-scroll'),image=dialog.querySelector('.toc-backdrop img');
+ const reduced=matchMedia('(prefers-reduced-motion:reduce)');let frame=0;
+ function paint(){
+  frame=0;if(!dialog.open)return;
+  const height=scroller.clientHeight;
+  scroller.style.setProperty('--toc-view',height+'px');
+  const range=Math.max(1,scroller.scrollHeight-height),progress=Math.max(0,Math.min(1,scroller.scrollTop/range));
+  image.style.transform='translate3d(0,'+(-height*1.4*(reduced.matches?0:progress))+'px,0)';
+ }
+ function schedule(){if(!frame)frame=requestAnimationFrame(paint);}
+ scroller.addEventListener('scroll',schedule,{passive:true});
+ new ResizeObserver(schedule).observe(scroller);
+ new MutationObserver(schedule).observe(dialog,{attributes:true,attributeFilter:['open']});
+ reduced.addEventListener('change',schedule);
+ image.addEventListener('load',schedule);
+})();
+</script>
 </body></html>
