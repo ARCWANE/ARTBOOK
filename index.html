@@ -228,43 +228,54 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run
 }
 </style>
 
-<style id="arcwane-neutral-transitions-and-portrait-emblems-v46">
-@media(max-width:700px),(max-width:950px) and (max-height:520px){
- #book:not(.closed) .leaf.story[data-index]:is([data-index="87"],[data-index="88"],[data-index="92"])::before{
-  background:linear-gradient(to top,rgba(2,5,6,.94) 0%,rgba(2,5,6,.92) 6%,rgba(2,5,6,.84) 14%,rgba(2,5,6,.71) 23%,rgba(2,5,6,.53) 33%,rgba(2,5,6,.32) 43%,rgba(2,5,6,.14) 53%,rgba(2,5,6,.035) 63%,rgba(2,5,6,0) 73%)!important;
- }
-}
-@media(max-width:700px) and (orientation:portrait){
- #artDialog[data-complete-emblem="true"][open] .art-frame{
-  inset:56px 0 0!important;width:100%!important;height:calc(100% - 56px)!important;
-  isolation:isolate;background:#030607!important;
- }
- #artDialog[data-complete-emblem="true"][open] .art-frame::before{
-  content:"";position:absolute;inset:-24px;z-index:-1;
-  background-image:var(--emblem-image);background-size:cover;background-position:center;
-  filter:blur(18px) brightness(.65);pointer-events:none;
- }
- #artDialog[data-complete-emblem="true"][open] .art-frame #artFull{
-  flex:none!important;width:auto!important;height:min(100%,150vw)!important;
-  max-width:none!important;max-height:none!important;aspect-ratio:auto!important;
-  object-fit:contain!important;object-position:center!important;margin:0!important;
-  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 1.5%,#000 98.5%,transparent 100%)!important;
-  mask-image:linear-gradient(180deg,transparent 0%,#000 1.5%,#000 98.5%,transparent 100%)!important;
- }
- #artDialog[data-complete-emblem="true"][open] .art-frame::after{display:none!important}
-}
-</style>
+
 <style id="arcwane-viewer-centered-v47">
 #artDialog .art-frame{scroll-behavior:auto!important;overflow-anchor:none!important;direction:ltr!important}
 #artDialog #artFull{object-position:50% 50%!important}
 </style>
-<style id="arcwane-emblem-single-center-v47">
+
+<style id="arcwane-pure-black-reading-gradient-v48">
+/* A single, neutral black fade follows the actual first line of text. */
+#book:not(.closed) .leaf[data-index]:not(.cover):not(.contents-page):not(.blank):is(.story,.chapter-page){background:#000!important}
+#book:not(.closed) .leaf[data-index]:not(.cover):not(.contents-page):not(.blank):is(.story,.chapter-page)::before{
+ inset:0!important;pointer-events:none!important;box-shadow:none!important;
+ background:linear-gradient(to bottom,
+  rgba(0,0,0,0) 0%,
+  rgba(0,0,0,0) max(0%,calc(var(--reading-top,55%) - 26%)),
+  rgba(0,0,0,.025) max(0%,calc(var(--reading-top,55%) - 22%)),
+  rgba(0,0,0,.10) max(0%,calc(var(--reading-top,55%) - 17%)),
+  rgba(0,0,0,.26) max(0%,calc(var(--reading-top,55%) - 12%)),
+  rgba(0,0,0,.47) max(0%,calc(var(--reading-top,55%) - 7%)),
+  rgba(0,0,0,.66) max(0%,calc(var(--reading-top,55%) - 3%)),
+  rgba(0,0,0,.78) var(--reading-top,55%),
+  rgba(0,0,0,.88) min(100%,calc(var(--reading-top,55%) + 7%)),
+  rgba(0,0,0,.94) min(100%,calc(var(--reading-top,55%) + 16%)),
+  rgba(0,0,0,.98) 100%)!important;
+}
+#book:not(.closed) .leaf[data-index]:not(.cover):not(.contents-page):not(.blank):is(.story,.chapter-page) .page-copy,
+#book:not(.closed) .leaf[data-index]:not(.cover):not(.contents-page):not(.blank):is(.story,.chapter-page) .page-foot{background:none!important;box-shadow:none!important}
+</style>
+<style id="arcwane-emblem-real-portrait-v49">
 @media(max-width:700px) and (orientation:portrait){
- #artDialog[data-complete-emblem="true"][open] .art-frame{display:block!important;overflow:clip!important}
- #artDialog[data-complete-emblem="true"][open] .art-frame #artFull{
-  position:absolute!important;left:50%!important;top:50%!important;right:auto!important;bottom:auto!important;
-  transform:translate(-50%,-50%)!important;margin:0!important;
- }
+ #artDialog[open][data-complete-emblem="true"] .art-frame{inset:56px 0 0!important;width:100%!important;height:calc(100% - 56px)!important;display:block!important;overflow:clip!important;background:#000!important}
+ #artDialog[open][data-complete-emblem="true"] .art-frame::before{display:none!important;background:none!important;filter:none!important}
+ #artDialog[open][data-complete-emblem="true"] .art-frame #artFull{position:absolute!important;inset:0!important;transform:none!important;margin:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;aspect-ratio:auto!important;object-fit:cover!important;object-position:center!important;-webkit-mask-image:none!important;mask-image:none!important;filter:none!important}
+ #artDialog[open][data-complete-emblem="true"] .art-frame::after{display:block!important;content:""!important;position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.25) 0%,rgba(0,0,0,.12) 9%,rgba(0,0,0,0) 23%)!important}
+}
+</style>
+<style id="arcwane-whole-art-fit-v50">
+/* The inspection view shows the complete artwork without lateral cropping. */
+#artDialog[open]:not([data-complete-emblem="true"]) .art-frame{overflow:hidden!important;scroll-behavior:auto!important}
+#artDialog[open]:not([data-complete-emblem="true"]) .art-frame #artFull{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important;margin:0!important}
+@media(max-width:700px) and (orientation:portrait){
+ #book:not(.closed) .leaf.story[data-index]:not(.cover):not(.contents-page) .page-art{inset:0 0 auto!important;position:absolute!important;width:100%!important;height:auto!important;max-height:none!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center top!important;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 88%,transparent 100%)!important;mask-image:linear-gradient(to bottom,#000 0%,#000 88%,transparent 100%)!important}
+ #book:not(.closed) .leaf.chapter-page[data-index]:is([data-index="37"],[data-index="75"]) .page-art{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;-webkit-mask-image:none!important;mask-image:none!important}
+ #artDialog[open][data-complete-emblem="true"] .art-frame #artFull{object-fit:contain!important}
+}
+</style>
+<style id="arcwane-whole-art-desktop-size-v50">
+@media(min-width:701px),(orientation:landscape){
+ #artDialog[open]:not([data-complete-emblem="true"]) .art-frame{width:100%!important;height:min(72dvh,800px)!important;display:flex!important;align-items:center!important;justify-content:center!important}
 }
 </style>
 </head>
@@ -427,19 +438,7 @@ document.addEventListener('click',event=>{
 })();
 </script>
 
-<script id="arcwane-emblem-viewer-background-v46">
-(()=>{
- const image=document.getElementById('artFull'),dialog=document.getElementById('artDialog');
- if(!image||!dialog)return;
- const sync=()=>{
-  if(dialog.dataset.completeEmblem==='true')image.parentNode.style.setProperty('--emblem-image','url('+JSON.stringify(image.src)+')');
-  else image.parentNode.style.removeProperty('--emblem-image');
- };
- new MutationObserver(sync).observe(image,{attributes:true,attributeFilter:['src']});
- new MutationObserver(sync).observe(dialog,{attributes:true,attributeFilter:['data-complete-emblem','open']});
- image.addEventListener('load',sync);sync();
-})();
-</script>
+
 <script id="arcwane-viewer-centered-v47-script">
 (()=>{
  const dialog=document.getElementById('artDialog'),image=document.getElementById('artFull');
@@ -481,6 +480,62 @@ document.addEventListener('click',event=>{
  frame.addEventListener('touchstart',cancel,{passive:true});
  dialog.addEventListener('close',cancel);
  opened();
+})();
+</script>
+<script id="arcwane-reading-gradient-position-v48">
+(()=>{
+ const book=document.getElementById('book');if(!book)return;
+ const observed=new WeakSet();let pending=0;
+ const measure=()=>{
+  pending=0;
+  book.querySelectorAll('.leaf.story[data-index],.leaf.chapter-page[data-index]').forEach(leaf=>{
+   const copy=leaf.querySelector('.page-copy');
+   const first=copy&&(copy.querySelector('.section')||copy.querySelector('h2')||copy);
+   if(!first||!leaf.clientHeight)return;
+   // offsetTop avoids distorted bounding boxes while a page is turning in 3D.
+   let top=0,node=first;
+   while(node&&node!==leaf){top+=node.offsetTop;node=node.offsetParent;}
+   if(node!==leaf)return;
+   const percentage=Math.max(28,Math.min(84,100*top/leaf.clientHeight));
+   leaf.style.setProperty('--reading-top',percentage.toFixed(3)+'%');
+   if(resize&&!observed.has(leaf)){observed.add(leaf);resize.observe(leaf);if(copy)resize.observe(copy);}
+  });
+ };
+ const schedule=()=>{if(!pending)pending=requestAnimationFrame(measure);};
+ const resize=typeof ResizeObserver!=='undefined'?new ResizeObserver(schedule):null;
+ new MutationObserver(schedule).observe(book,{childList:true,subtree:true});
+ window.addEventListener('resize',schedule,{passive:true});
+ if(document.fonts)document.fonts.ready.then(schedule);
+ schedule();
+})();
+</script>
+<script id="arcwane-emblem-portrait-source-v49">
+(()=>{
+ const dialog=document.getElementById('artDialog'),image=document.getElementById('artFull');if(!dialog||!image)return;
+ const portrait=matchMedia('(max-width:700px) and (orientation:portrait)');let page=null;
+ const book=document.getElementById('book');
+ const titlePages=()=>{
+  book?.querySelectorAll('.leaf.chapter-page[data-index]').forEach(leaf=>{
+   const index=leaf.dataset.index;if(!['37','75'].includes(index))return;
+   const target=leaf.querySelector('.page-art'),data=window.ARKVEIN_BOOK?.pages[Number(index)];if(!target||!data)return;
+   const src=portrait.matches?(index==='37'?'limbrein-emblem-portrait.webp?v=49':'avernax-emblem-portrait.webp?v=49'):data.image;
+   if(target.getAttribute('src')!==src)target.src=src;
+  });
+ };
+ if(book)new MutationObserver(titlePages).observe(book,{childList:true,subtree:true});
+ titlePages();
+ const choose=()=>{
+  titlePages();
+  if(!dialog.open||!['37','75'].includes(page))return;
+  const data=window.ARKVEIN_BOOK?.pages[Number(page)];if(!data)return;
+  const src=portrait.matches?(page==='37'?'limbrein-emblem-portrait.webp?v=49':'avernax-emblem-portrait.webp?v=49'):data.image;
+  if(image.getAttribute('src')!==src)image.src=src;
+ };
+ document.addEventListener('click',event=>{
+  const button=event.target.closest('[data-art]');if(!button)return;
+  page=button.dataset.art;queueMicrotask(choose);
+ });
+ portrait.addEventListener('change',choose);
 })();
 </script>
 </body></html>
