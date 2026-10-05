@@ -6,7 +6,7 @@
 <meta name="description" content="Арквейн — иллюстрированная книга мира: земли, народы, фракции, герои и предания.">
 <title>ARCWANE — Artbook 2026</title>
 <link rel="icon" href="world-mark-v5.png" type="image/png"><link rel="stylesheet" href="style.css?v=arcwane-limbrein-title-20261003">
-<script src="book-data.js?v=arcwane-claude-gradient-v39-20261005" defer></script><script src="page-fold.js?v=arcwane-v71" defer></script><script src="reader.js?v=arcwane-v71" defer></script>
+<script src="book-data.js?v=arcwane-dioval-consistency-v41-20261005" defer></script><script src="page-fold.js?v=arcwane-v71" defer></script><script src="reader.js?v=arcwane-v71" defer></script>
 <style>.book:not(.closed) .chapter-page[data-index="37"]:before{background:linear-gradient(180deg,#0000 40%,#03090960 65%,#030909bb 100%)!important}@media(min-width:701px){.book:not(.closed) .chapter-page[data-index="37"] .page-copy{top:65%!important}.book:not(.closed) .chapter-page[data-index="37"] .page-art{height:90%!important;object-position:center top!important}}</style>
 <style>@media(max-width:700px){.book:not(.closed) .leaf.chapter-page[data-index="5"] .page-copy,.book:not(.closed) .leaf.chapter-page[data-index="37"] .page-copy{bottom:85px!important}}</style>
 <style>
@@ -209,6 +209,32 @@ const set=()=>{const n=(i.getAttribute('src')||'').split('/').pop().split('?')[0
 new MutationObserver(set).observe(i,{attributes:true,attributeFilter:['src']});set();};
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run):run();})();
 </script>
+
+<style id="arcwane-all-pages-mobile-soft-gradient-v43">
+/* One gentle mobile reading profile; original desktop styling stays intact. */
+@media(max-width:700px),(max-width:950px) and (max-height:520px){
+ #book:not(.closed) .leaf[data-index]:not(.cover):not(.contents-page):not(.blank)::before{
+  inset:0!important;height:100%!important;aspect-ratio:auto!important;
+  background:linear-gradient(0deg,#03090bf2 0%,#03090bce 14%,#03090b9e 30%,#03090b70 44%,#03090b38 58%,#03090b12 72%,#03090b00 84%)!important;
+ }
+}
+@media(max-width:700px) and (orientation:portrait){
+ /* Extend the illustration into the text area, then fade its edge into the leaf. */
+ #book:not(.closed) .leaf.story[data-index] .page-art{
+  height:min(100%,calc(var(--arth,100%) + 80px))!important;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 72%,#000c 86%,#0006 94%,#0000 100%)!important;
+  mask-image:linear-gradient(180deg,#000 0%,#000 72%,#000c 86%,#0006 94%,#0000 100%)!important;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;
+ }
+ /* Emblem dimensions and title placement are preserved; only the fade is lighter. */
+ #book:not(.closed) .leaf.chapter-page[data-index] .page-art{
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 78%,#000c 88%,#0006 95%,#0000 100%),linear-gradient(90deg,#0000 0%,#000 14%,#000 86%,#0000 100%)!important;
+  mask-image:linear-gradient(180deg,#000 0%,#000 78%,#000c 88%,#0006 95%,#0000 100%),linear-gradient(90deg,#0000 0%,#000 14%,#000 86%,#0000 100%)!important;
+  -webkit-mask-composite:source-in;mask-composite:intersect;
+ }
+}
+</style>
 </head>
 <body>
 <div class="app">
