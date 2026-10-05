@@ -278,13 +278,72 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run
  #artDialog[open]:not([data-complete-emblem="true"]) .art-frame{width:100%!important;height:min(72dvh,800px)!important;display:flex!important;align-items:center!important;justify-content:center!important}
 }
 </style>
-<style id="arcwane-mobile-full-art-v51">
-/* Phones: every art page shows the art full-size, centred; a dark fade rises from the bottom only up to the first line of text. */
+<style id="arcwane-mobile-art-v54">
+/* Phones: art from the top down to just below the first line of text (less zoom than full page), centred;
+   it darkens softly right before the letters, the text sits on the dark lower part. */
 @media(max-width:700px) and (orientation:portrait){
- #book:not(.closed) .leaf[data-index]:not(.cover):not(.contents-page):not(.blank):is(.story,.chapter-page) .page-art{
-  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-height:none!important;aspect-ratio:auto!important;
-  object-fit:cover!important;object-position:var(--fx,50%) 50%!important;-webkit-mask-image:none!important;mask-image:none!important;transform:none!important}
- #book:not(.closed) .leaf[data-index]:not(.cover):not(.contents-page):not(.blank).chapter-page .page-art{object-position:50% 40%!important}
+ #book:not(.closed) .leaf.story[data-index]:not(.cover):not(.contents-page):not(.blank){background:#030405!important}
+ #book:not(.closed) .leaf.story[data-index]:not(.cover):not(.contents-page):not(.blank) .page-art{
+  position:absolute!important;inset:0 0 auto 0!important;width:100%!important;height:clamp(52%,calc(var(--reading-top,55%) + 16%),82%)!important;
+  max-height:none!important;aspect-ratio:auto!important;object-fit:cover!important;object-position:var(--fx,50%) 45%!important;transform:none!important;z-index:-3!important;
+  -webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 100%)!important;mask-image:linear-gradient(180deg,#000 70%,transparent 100%)!important}
+ #book:not(.closed) .leaf.story[data-index]:not(.cover):not(.contents-page):not(.blank)::before{
+  inset:0!important;box-shadow:none!important;pointer-events:none!important;
+  background:linear-gradient(180deg,rgba(3,4,5,0) 0%,rgba(3,4,5,0) calc(var(--reading-top,55%) - 16%),rgba(3,4,5,.35) calc(var(--reading-top,55%) - 8%),rgba(3,4,5,.72) calc(var(--reading-top,55%) - 2%),rgba(3,4,5,.88) calc(var(--reading-top,55%) + 6%),rgba(3,4,5,.94) 100%)!important}
+}
+</style>
+<style id="arcwane-mobile-focus-v55">
+/* Phones: per-art horizontal framing so the main figures stay in view. */
+@media(max-width:700px) and (orientation:portrait){
+ #book:not(.closed) .leaf.story[data-index="7"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:29% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="8"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:29% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="16"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:75% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="22"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:8% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="24"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="30"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="31"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:8% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="33"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:29% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="34"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:46% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="36"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:0% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="38"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:75% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="41"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:29% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="42"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:19% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="43"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="45"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="46"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:29% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="49"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:60% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="51"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:29% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="53"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:60% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="56"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:71% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="58"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:29% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="59"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:25% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="60"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:81% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="63"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:29% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="65"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:29% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="67"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:60% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="69"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="70"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="72"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:71% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="73"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:19% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="78"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:25% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="79"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:8% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="80"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:29% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="82"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:0% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="84"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:15% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="85"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:25% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="86"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:8% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="90"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:25% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="91"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:60% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="92"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="97"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="98"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:8% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="99"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="104"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="105"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="107"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:25% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="108"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:20% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="109"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="111"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
 }
 </style>
 </head>
