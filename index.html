@@ -254,6 +254,19 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run
  #artDialog[data-complete-emblem="true"][open] .art-frame::after{display:none!important}
 }
 </style>
+<style id="arcwane-viewer-centered-v47">
+#artDialog .art-frame{scroll-behavior:auto!important;overflow-anchor:none!important;direction:ltr!important}
+#artDialog #artFull{object-position:50% 50%!important}
+</style>
+<style id="arcwane-emblem-single-center-v47">
+@media(max-width:700px) and (orientation:portrait){
+ #artDialog[data-complete-emblem="true"][open] .art-frame{display:block!important;overflow:clip!important}
+ #artDialog[data-complete-emblem="true"][open] .art-frame #artFull{
+  position:absolute!important;left:50%!important;top:50%!important;right:auto!important;bottom:auto!important;
+  transform:translate(-50%,-50%)!important;margin:0!important;
+ }
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -425,6 +438,49 @@ document.addEventListener('click',event=>{
  new MutationObserver(sync).observe(image,{attributes:true,attributeFilter:['src']});
  new MutationObserver(sync).observe(dialog,{attributes:true,attributeFilter:['data-complete-emblem','open']});
  image.addEventListener('load',sync);sync();
+})();
+</script>
+<script id="arcwane-viewer-centered-v47-script">
+(()=>{
+ const dialog=document.getElementById('artDialog'),image=document.getElementById('artFull');
+ if(!dialog||!image)return;
+ const frame=image.parentNode;
+ let revision=0,first=0,second=0;
+ const cancel=()=>{revision++;cancelAnimationFrame(first);cancelAnimationFrame(second);};
+ const center=()=>{
+  if(!dialog.open||!image.complete||!image.naturalWidth||!frame.clientWidth)return;
+  if(dialog.dataset.completeEmblem==='true'){frame.scrollLeft=0;frame.scrollTop=0;return;}
+  frame.scrollLeft=Math.max(0,(frame.scrollWidth-frame.clientWidth)/2);
+  frame.scrollTop=Math.max(0,(frame.scrollHeight-frame.clientHeight)/2);
+ };
+ const schedule=()=>{
+  cancel();if(!dialog.open)return;
+  const token=revision;
+  first=requestAnimationFrame(()=>{
+   if(token!==revision)return;
+   second=requestAnimationFrame(()=>{if(token===revision)center();});
+  });
+ };
+ const opened=()=>{
+  schedule();
+  const token=revision;
+  if(dialog.open&&image.complete&&image.naturalWidth&&image.decode){
+   image.decode().then(()=>{if(token===revision)schedule();}).catch(()=>{});
+  }
+ };
+ image.addEventListener('load',schedule);
+ new MutationObserver(opened).observe(image,{attributes:true,attributeFilter:['src','srcset']});
+ new MutationObserver(opened).observe(dialog,{attributes:true,attributeFilter:['open','data-crop','data-complete-emblem']});
+ if(typeof ResizeObserver!=='undefined'){
+  const sizes=new ResizeObserver(()=>{if(dialog.open)schedule();});
+  sizes.observe(frame);sizes.observe(image);
+ }
+ window.addEventListener('resize',schedule,{passive:true});
+ if(window.visualViewport)window.visualViewport.addEventListener('resize',schedule,{passive:true});
+ frame.addEventListener('pointerdown',cancel,{passive:true});
+ frame.addEventListener('touchstart',cancel,{passive:true});
+ dialog.addEventListener('close',cancel);
+ opened();
 })();
 </script>
 </body></html>
