@@ -227,6 +227,33 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run
  #book:not(.closed) .leaf[data-index]:not(.cover):not(.contents-page):not(.blank) .page-foot{background:none!important;box-shadow:none!important}
 }
 </style>
+
+<style id="arcwane-neutral-transitions-and-portrait-emblems-v46">
+@media(max-width:700px),(max-width:950px) and (max-height:520px){
+ #book:not(.closed) .leaf.story[data-index]:is([data-index="87"],[data-index="88"],[data-index="92"])::before{
+  background:linear-gradient(to top,rgba(2,5,6,.94) 0%,rgba(2,5,6,.92) 6%,rgba(2,5,6,.84) 14%,rgba(2,5,6,.71) 23%,rgba(2,5,6,.53) 33%,rgba(2,5,6,.32) 43%,rgba(2,5,6,.14) 53%,rgba(2,5,6,.035) 63%,rgba(2,5,6,0) 73%)!important;
+ }
+}
+@media(max-width:700px) and (orientation:portrait){
+ #artDialog[data-complete-emblem="true"][open] .art-frame{
+  inset:56px 0 0!important;width:100%!important;height:calc(100% - 56px)!important;
+  isolation:isolate;background:#030607!important;
+ }
+ #artDialog[data-complete-emblem="true"][open] .art-frame::before{
+  content:"";position:absolute;inset:-24px;z-index:-1;
+  background-image:var(--emblem-image);background-size:cover;background-position:center;
+  filter:blur(18px) brightness(.65);pointer-events:none;
+ }
+ #artDialog[data-complete-emblem="true"][open] .art-frame #artFull{
+  flex:none!important;width:auto!important;height:min(100%,150vw)!important;
+  max-width:none!important;max-height:none!important;aspect-ratio:auto!important;
+  object-fit:contain!important;object-position:center!important;margin:0!important;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 1.5%,#000 98.5%,transparent 100%)!important;
+  mask-image:linear-gradient(180deg,transparent 0%,#000 1.5%,#000 98.5%,transparent 100%)!important;
+ }
+ #artDialog[data-complete-emblem="true"][open] .art-frame::after{display:none!important}
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -384,6 +411,20 @@ document.addEventListener('click',event=>{
  tag();
  const book=document.getElementById('book')||document.querySelector('.book');
  if(book)new MutationObserver(tag).observe(book,{childList:true,subtree:true});
+})();
+</script>
+
+<script id="arcwane-emblem-viewer-background-v46">
+(()=>{
+ const image=document.getElementById('artFull'),dialog=document.getElementById('artDialog');
+ if(!image||!dialog)return;
+ const sync=()=>{
+  if(dialog.dataset.completeEmblem==='true')image.parentNode.style.setProperty('--emblem-image','url('+JSON.stringify(image.src)+')');
+  else image.parentNode.style.removeProperty('--emblem-image');
+ };
+ new MutationObserver(sync).observe(image,{attributes:true,attributeFilter:['src']});
+ new MutationObserver(sync).observe(dialog,{attributes:true,attributeFilter:['data-complete-emblem','open']});
+ image.addEventListener('load',sync);sync();
 })();
 </script>
 </body></html>
