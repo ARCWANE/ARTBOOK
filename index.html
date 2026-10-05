@@ -654,9 +654,11 @@ document.addEventListener('click',event=>{
  const fix=()=>{
   if(!portrait.matches||!['5','37','75'].includes(page))return;
   if(dialog.dataset.completeEmblem!=='true')dialog.dataset.completeEmblem='true';if(dialog.dataset.emblem!==page)dialog.dataset.emblem=page;
-  const want=P[page];if(want&&image.getAttribute('src')!==want)image.src=want;
+  const want=P[page];if(want&&!failed.has(want)&&image.getAttribute('src')!==want)image.src=want;
  };
  document.addEventListener('click',e=>{const b=e.target.closest('[data-art]');if(!b)return;page=b.dataset.art;if(!['5','37','75'].includes(page))delete dialog.dataset.emblem;setTimeout(fix,0);},true);
+ const failed=new Set();
+ image.addEventListener('error',()=>{const src=image.getAttribute('src');if(!Object.values(P).includes(src))return;failed.add(src);const d=window.ARKVEIN_BOOK?.pages[Number(page)];if(d)image.src=d.image;});
  new MutationObserver(fix).observe(image,{attributes:true,attributeFilter:['src']});
  new MutationObserver(()=>{if(dialog.open)fix();}).observe(dialog,{attributes:true,attributeFilter:['open','data-complete-emblem']});
 })();
