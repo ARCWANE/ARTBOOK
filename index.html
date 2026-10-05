@@ -278,6 +278,15 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run
  #artDialog[open]:not([data-complete-emblem="true"]) .art-frame{width:100%!important;height:min(72dvh,800px)!important;display:flex!important;align-items:center!important;justify-content:center!important}
 }
 </style>
+<style id="arcwane-mobile-full-art-v51">
+/* Phones: every art page shows the art full-size, centred; a dark fade rises from the bottom only up to the first line of text. */
+@media(max-width:700px) and (orientation:portrait){
+ #book:not(.closed) .leaf[data-index]:not(.cover):not(.contents-page):not(.blank):is(.story,.chapter-page) .page-art{
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-height:none!important;aspect-ratio:auto!important;
+  object-fit:cover!important;object-position:var(--fx,50%) 50%!important;-webkit-mask-image:none!important;mask-image:none!important;transform:none!important}
+ #book:not(.closed) .leaf[data-index]:not(.cover):not(.contents-page):not(.blank).chapter-page .page-art{object-position:50% 40%!important}
+}
+</style>
 </head>
 <body>
 <div class="app">
