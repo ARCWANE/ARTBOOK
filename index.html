@@ -298,7 +298,7 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',run
  #book:not(.closed) .leaf.story[data-index="7"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:29% 45%!important}
  #book:not(.closed) .leaf.story[data-index="8"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:29% 45%!important}
  #book:not(.closed) .leaf.story[data-index="16"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:75% 45%!important}
- #book:not(.closed) .leaf.story[data-index="22"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:8% 45%!important}
+ #book:not(.closed) .leaf.story[data-index="22"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:58% 45%!important}
  #book:not(.closed) .leaf.story[data-index="24"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
  #book:not(.closed) .leaf.story[data-index="30"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:40% 45%!important}
  #book:not(.closed) .leaf.story[data-index="31"]:not(.cover):not(.contents-page):not(.blank) .page-art{object-position:8% 45%!important}
@@ -605,5 +605,28 @@ document.addEventListener('click',event=>{
  });
  portrait.addEventListener('change',choose);
 })();
+</script>
+
+<style id="arcwane-mobile-viewer-v56">
+@media(max-width:700px) and (orientation:portrait){
+ /* Emblem pages 37/75: art fills the whole page, no side bars. */
+ #book:not(.closed) .leaf.chapter-page[data-index]:is([data-index="37"],[data-index="75"]) .page-art{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:50% 50%!important}
+ /* Emblem viewer (Echor, Limbrein, Avernax): vertical, full screen height. */
+ #artDialog[open][data-complete-emblem="true"] .art-frame #artFull{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:50% 50%!important}
+ #artDialog[open][data-complete-emblem="true"] .art-frame::after{background:linear-gradient(to top,rgba(0,0,0,.18) 0%,rgba(0,0,0,0) 18%)!important}
+ /* Art viewer: no coloured fades, art clearly visible. */
+ #artDialog[open]:not([data-complete-emblem="true"]) .art-frame::after,#artDialog[open]:not([data-complete-emblem="true"]) .art-frame::before{display:none!important;background:none!important}
+ #artDialog[open]:not([data-complete-emblem="true"]) .art-frame #artFull{filter:none!important;-webkit-mask-image:none!important;mask-image:none!important}
+ #artDialog[open] #artCaption{background:linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.25) 60%,rgba(0,0,0,0) 100%)!important}
+ /* Avernax: cut off the band baked into the bottom of the picture. */
+ #artDialog[open][data-crop]:not([data-complete-emblem="true"]) .art-frame #artFull{position:absolute!important;left:0!important;right:0!important;top:50%!important;bottom:auto!important;width:100%!important;height:auto!important;max-height:100%!important;aspect-ratio:var(--ar)!important;transform:translateY(-50%)!important;object-fit:cover!important;object-position:50% 0!important}
+}
+</style>
+<script id="arcwane-echor-emblem-portrait-v56">
+document.addEventListener('click',event=>{
+ const button=event.target.closest('[data-art]');if(!button||button.dataset.art!=='5')return;
+ if(!matchMedia('(max-width:700px) and (orientation:portrait)').matches)return;
+ document.getElementById('artDialog').dataset.completeEmblem='true';
+});
 </script>
 </body></html>
