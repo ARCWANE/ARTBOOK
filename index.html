@@ -482,6 +482,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 document.addEventListener('click',event=>{
  const button=event.target.closest('[data-art]');if(!button)return;
  const dialog=document.getElementById('artDialog');
+ dialog.dataset.sanctarArt=window.ARKVEIN_BOOK?.pages[Number(button.dataset.art)]?.chapter==='sanctars'?'true':'false';
  if(['faction-title','limbrein-title','avernax-emblem','sanctars-emblem'].includes(window.ARKVEIN_BOOK?.pages[Number(button.dataset.art)]?.id))dialog.dataset.completeEmblem='true';
  else delete dialog.dataset.completeEmblem;
 });
@@ -700,4 +701,22 @@ document.addEventListener('click',event=>{
 // Echor emblem opens full-screen like Limbrein on every screen.
 document.addEventListener('click',e=>{const b=e.target.closest('[data-art]');if(!b||b.dataset.art!=='5')return;const d=document.getElementById('artDialog');if(d.dataset.completeEmblem!=='true')d.dataset.completeEmblem='true';});
 </script>
+<style id="sanctar-art-wide">
+@media(min-width:701px){
+#artDialog[open][data-sanctar-art="true"]:not([data-complete-emblem="true"]) .art-frame{width:100%!important;height:auto!important;aspect-ratio:16/9!important;max-height:none!important;display:block!important;overflow:hidden!important}
+#artDialog[open][data-sanctar-art="true"]:not([data-complete-emblem="true"]) .art-frame #artFull{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;aspect-ratio:auto!important;object-fit:cover!important;object-position:center!important;transform:none!important;clip-path:none!important}
+ #artDialog[open][data-sanctar-art="true"]:not([data-complete-emblem="true"]) .art-frame{width:min(100%,calc(72dvh * 16 / 9))!important;margin-inline:auto!important}
+}
+</style>
+<style id="sanctar-phone-reader">
+@media(max-width:700px) and (orientation:portrait){
+ #book:not(.closed) .leaf.sanctars-page.story .page-copy{background:linear-gradient(0deg,#03090b 0%,#03090b 70%,#03090bcc 86%,#03090b00 100%)!important}
+ #book:not(.closed) .leaf.sanctars-page.chapter-page .page-copy{bottom:calc(60px + env(safe-area-inset-bottom,0px))!important}
+ #book:not(.closed) .leaf.sanctars-page.story .page-art{object-position:var(--mobile-fx,50%) 45%!important}
+ #artDialog[open][data-sanctar-art="true"]:not([data-complete-emblem="true"]) .art-frame{position:absolute!important;inset:56px 0 0!important;width:100%!important;height:calc(100% - 56px)!important;aspect-ratio:auto!important;margin:0!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important}
+ #artDialog[open][data-sanctar-art="true"]:not([data-complete-emblem="true"]) .art-frame #artFull{position:static!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important;transform:none!important;clip-path:none!important}
+ #artDialog[open][data-sanctar-art="true"] .dialog-head h2{max-width:calc(100% - 44px);font-size:18px;line-height:1.2;overflow-wrap:anywhere}
+ #artDialog[open][data-sanctar-art="true"] .close{min-width:44px;min-height:44px}
+}
+</style>
 </body></html>
