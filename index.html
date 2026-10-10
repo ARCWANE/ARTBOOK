@@ -735,4 +735,10 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-art]');if(
 #artDialog[open][data-emblem="5"] .art-frame #artFull{position:absolute!important;inset:auto!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:240%!important;height:auto!important;max-width:none!important;max-height:none!important;object-fit:contain!important;aspect-ratio:auto!important}
 }
 </style>
+<style id="arcwane-sanctars-army-reading-contrast-v44">
+/* Page 121: slightly deepen the reading gradient over the bright stairs. */
+#book:not(.closed) .leaf.sanctars-page.story[data-index="121"]:not(.cover):not(.contents-page):not(.blank)::before{
+ background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0) max(0%,calc(var(--reading-top,55%) - 14%)),rgba(0,0,0,.18) max(0%,calc(var(--reading-top,55%) - 8%)),rgba(0,0,0,.43) max(0%,calc(var(--reading-top,55%) - 3%)),rgba(0,0,0,.65) var(--reading-top,55%),rgba(0,0,0,.80) min(100%,calc(var(--reading-top,55%) + 9%)),rgba(0,0,0,.89) min(100%,calc(var(--reading-top,55%) + 22%)),rgba(0,0,0,.93) 100%)!important;
+}
+</style>
 </body></html>
